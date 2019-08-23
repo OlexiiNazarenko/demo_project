@@ -91,6 +91,12 @@ public class AppController {
                     orderId
             );
             orderedProductRepository.save(orderedProduct);
+
+            Product product = productRepository.findByName(p.getName());
+            int newQuantity = product.getQuantity() - p.getQuantity();
+            System.out.println(newQuantity);
+            product.setQuantity(newQuantity);
+            productRepository.save(product);
         }
 
         return "Order " + orderId + " saved";

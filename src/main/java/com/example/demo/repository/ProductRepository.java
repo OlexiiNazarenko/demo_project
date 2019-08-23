@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
+    Product findByName(String name);
+
 //    List<Product> findByCategoryOrderById(String category);
 }
