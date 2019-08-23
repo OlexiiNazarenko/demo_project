@@ -1,33 +1,75 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Customer;
-import com.example.demo.model.OrderedProduct;
-
 import java.util.List;
 
 public class CartDTO {
 
-    private Customer customer;
-    private List<OrderedProduct> orderedProductList;
+    private String customerFirstName;
+    private String customerLastName;
+    private String customerAddress;
+    private String customerPhone;
+    private String customerEmail;
+    private List<CartOrderedProductDTO> orderedProductsList;
 
-    public CartDTO(Customer customer, List<OrderedProduct> orderedProductList) {
-        this.customer = customer;
-        this.orderedProductList = orderedProductList;
+    public CartDTO(String customerFirstName,
+                   String customerLastName,
+                   String customerAddress,
+                   String customerPhone,
+                   String customerEmail,
+                   List<CartOrderedProductDTO> orderedProductsList) {
+        this.customerFirstName = customerFirstName;
+        this.customerLastName = customerLastName;
+        this.customerAddress = customerAddress;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.orderedProductsList = orderedProductsList;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerFirstName() {
+        return customerFirstName;
     }
 
-    public List<OrderedProduct> getOrderedProductList() {
-        return orderedProductList;
+    public String getCustomerLastName() {
+        return customerLastName;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setOrderedProductList(List<OrderedProduct> orderedProductList) {
-        this.orderedProductList = orderedProductList;
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public List<CartOrderedProductDTO> getOrderedProductsList() {
+        return orderedProductsList;
+    }
+
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
+    }
+
+    public void setCustomerLastName(String customerLastName) {
+        this.customerLastName = customerLastName;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public void setOrderedProductsList(List<CartOrderedProductDTO> orderedProductsList) {
+        this.orderedProductsList = orderedProductsList;
     }
 }

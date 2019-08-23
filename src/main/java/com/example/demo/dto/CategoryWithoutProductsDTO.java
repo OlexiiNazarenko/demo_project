@@ -4,10 +4,10 @@ import javax.persistence.Column;
 
 public class CategoryWithoutProductsDTO {
 
-    @Column(name = "id")
+//    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
     public CategoryWithoutProductsDTO(Integer id, String name) {

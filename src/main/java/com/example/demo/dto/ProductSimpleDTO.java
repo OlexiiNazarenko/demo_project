@@ -4,16 +4,16 @@ import javax.persistence.Column;
 
 public class ProductSimpleDTO {
 
-    @Column(name = "id")
+//    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
+//    @Column(name = "price")
     private Double price;
 
-    @Column(name = "photo")
+//    @Column(name = "photo")
     private String photo;
 
     public ProductSimpleDTO() {

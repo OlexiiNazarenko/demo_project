@@ -1,19 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.CartDTO;
+import com.example.demo.dto.CartOrderedProductDTO;
 import com.example.demo.dto.CategoryWithoutProductsDTO;
 import com.example.demo.dto.ProductSimpleDTO;
-import com.example.demo.model.Category;
-import com.example.demo.model.Customer;
-import com.example.demo.model.OrderedProduct;
-import com.example.demo.model.Product;
+import com.example.demo.model.*;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.OrderedProductRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("")
@@ -24,6 +25,12 @@ public class AppController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderedProductRepository orderedProductRepository;
 
     @GetMapping("")
     public @ResponseBody
@@ -61,10 +68,31 @@ public class AppController {
         return result;
     }
 
-    @GetMapping("cart/save")
+    @PostMapping("cart/save")
     public String saveCart(@RequestBody CartDTO cartDTO){
-        Customer customer = cartDTO.getCustomer();
-        List<OrderedProduct> orderedProductList = cartDTO.getOrderedProductList();
-        return "Cart saved";
+        String orderId = UUID.randomUUID().toString();
+        Order order = new Order(
+                orderId,
+                cartDTO.getCustomerFirstName(),
+                cartDTO.getCustomerLastName(),
+                cartDTO.getCustomerAddress(),
+                cartDTO.getCustomerPhone(),
+                cartDTO.getCustomerEmail()
+        );
+        orderRepository.save(order);
+
+        List<CartOrderedProductDTO> orderedProductList = cartDTO.getOrderedProductsList();
+        for(CartOrderedProductDTO p : orderedProductList) {
+            OrderedProduct orderedProduct = new OrderedProduct(
+                    0,
+                    p.getName(),
+                    p.getSellPrice(),
+                    p.getQuantity(),
+                    orderId
+            );
+            orderedProductRepository.save(orderedProduct);
+        }
+
+        return "Order " + orderId + " saved";
     }
 }
