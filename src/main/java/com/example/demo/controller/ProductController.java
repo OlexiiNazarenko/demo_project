@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
 
     private ProductRepository productRepository;
@@ -20,17 +20,12 @@ public class ProductController {
         this.productRepository = mysqlRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public @ResponseBody Iterable<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    @GetMapping("/category/{category}")
-    public @ResponseBody List<Product> getProductsOfCategory (@PathVariable String category) {
-        return productRepository.findByCategoryOrderById(category);
-    }
-
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public @ResponseBody Product getOneProductById(@PathVariable Integer id) {
         return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
@@ -40,13 +35,12 @@ public class ProductController {
         return productRepository.save(newProduct);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Integer id, @RequestBody Product newProduct) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setId(newProduct.getId());
                     product.setName(newProduct.getName());
-                    product.setCategory(newProduct.getCategory());
                     product.setDescription(newProduct.getDescription());
                     product.setPrice(newProduct.getPrice());
                     product.setPhoto(newProduct.getPhoto());
@@ -57,7 +51,7 @@ public class ProductController {
                 });
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productRepository.deleteById(id);
     }

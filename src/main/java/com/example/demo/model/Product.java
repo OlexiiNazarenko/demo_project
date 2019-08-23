@@ -2,8 +2,10 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="products")
@@ -14,20 +16,30 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name")
     private String name;
-    private String category;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private Double price;
+
+    @Column(name = "photo")
     private String photo;
+
+    @Column(name = "quantity")
     private Integer quantity;
+
+    private Integer categoryId;
 
     public Product() {
     }
 
-    public Product(int id, String name, String category, String description, double price, String photo, int quantity) {
+    public Product(int id, String name, String description, double price, String photo, int quantity) {
         this.id = id;
         this.name = name;
-        this.category = category;
+//        this.category = category;
         this.description = description;
         this.price = price;
         this.photo = photo;
@@ -42,9 +54,9 @@ public class Product implements Serializable {
         return name;
     }
 
-    public String getCategory() {
-        return category;
-    }
+//    public String getCategory() {
+//        return category;
+//    }
 
     public String getDescription() {
         return description;
@@ -70,9 +82,9 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -95,7 +107,7 @@ public class Product implements Serializable {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
+//                ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", photo='" + photo + '\'' +
