@@ -1,21 +1,19 @@
 package com.example.demo.dto;
 
-import javax.persistence.Column;
-
 public class CartOrderedProductDTO {
 
-    private String productName;
+    private Integer productId;
     private Double sellPrice;
     private Integer quantity;
 
-    public CartOrderedProductDTO(String name, Double sellPrice, Integer quantity) {
-        this.productName = name;
+    public CartOrderedProductDTO(Integer productId, Double sellPrice, Integer quantity) {
+        this.productId = productId;
         this.sellPrice = sellPrice;
         this.quantity = quantity;
     }
 
-    public String getName() {
-        return productName;
+    public Integer getProductId() {
+        return productId;
     }
 
     public Double getSellPrice() {
@@ -26,8 +24,8 @@ public class CartOrderedProductDTO {
         return quantity;
     }
 
-    public void setName(String name) {
-        this.productName = name;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public void setSellPrice(Double sellPrice) {

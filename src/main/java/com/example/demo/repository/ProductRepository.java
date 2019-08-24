@@ -9,5 +9,5 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 
     Product findByName(String name);
 
-//    List<Product> findByCategoryOrderById(String category);
+    List<Product> findByCategoryId(Integer categoryId);
 }

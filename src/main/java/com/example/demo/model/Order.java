@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,8 +8,9 @@ import java.util.List;
 public class Order {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -28,13 +27,10 @@ public class Order {
     @Column(name = "email")
     private String email;
 
-//    @OneToMany(mappedBy = "order")
-//    private List<OrderedProduct> orderedProductList;
-
     public Order() {
     }
 
-    public Order(String id, String firstName, String lastName, String address, String phone, String email) {
+    public Order(Integer id, String firstName, String lastName, String address, String phone, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,11 +39,11 @@ public class Order {
         this.email = email;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

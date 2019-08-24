@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface OrderedProductRepository extends JpaRepository<OrderedProduct, Integer> {
 
-    List<OrderedProduct> findAllByOrderId(String orderId);
+    List<OrderedProduct> findAllByOrderId(Integer orderId);
+
+    void deleteByOrderId(String orderId);
 }

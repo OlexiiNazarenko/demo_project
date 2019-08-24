@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Category;
-import com.example.demo.model.CategoryNotFoundException;
-import com.example.demo.model.Product;
-import com.example.demo.repository.CategoryRepository;
-import io.swagger.models.auth.In;
+
+import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,37 +12,35 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 
+    private CategoryService categoryService;
+
     @Autowired
-    private CategoryRepository categoryRepository;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/{id}")
     public @ResponseBody Category getCategory (@RequestParam Integer id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
+        return categoryService.getOne(id);
     }
 
     @GetMapping("/{name}")
     public @ResponseBody Category getCategory (@RequestParam String name) {
-        return categoryRepository.findByName(name);
+        return categoryService.getOne(name);
     }
 
     @PostMapping("")
     public Category createNewCategory(@RequestBody Category category) {
-        return categoryRepository.save(category);
+        return categoryService.addNew(category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategoryById(@PathVariable Integer id, @RequestBody Category updatedCategory) {
-        return categoryRepository.findById(id)
-                .map(category -> {
-                    category.setName(updatedCategory.getName());
-                    return categoryRepository.save(category);
-                }).orElseGet(() ->
-                        {return categoryRepository.save(updatedCategory);
-                        });
+    public Category updateCategory( @RequestBody Category updatedCategory) {
+        return categoryService.update(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Integer id) {
-        categoryRepository.deleteById(id);
+        categoryService.delete(id);
     }
 }

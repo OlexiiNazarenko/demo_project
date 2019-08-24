@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Product;
-import com.example.demo.model.ProductNotFoundException;
-import com.example.demo.repository.ProductRepository;
 
+import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,46 +12,41 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @Autowired
-    public ProductController(ProductRepository mysqlRepository) {
-        this.productRepository = mysqlRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/all")
     public @ResponseBody Iterable<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.getAll();
+    }
+
+    @GetMapping("/shop/{categoryId}")
+    public @ResponseBody
+    List<Product> getProductsOfCategory(@PathVariable Integer categoryId){
+        return productService.getAllOfCategory(categoryId);
     }
 
     @GetMapping("/{id}")
     public @ResponseBody Product getOneProductById(@PathVariable Integer id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        return productService.getOne(id);
     }
 
     @PostMapping("")
-    public Product createNewProduct(@RequestBody Product newProduct) {
-        return productRepository.save(newProduct);
+    public Product createNewProduct(@RequestBody Product product){
+        return productService.addNew(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Integer id, @RequestBody Product newProduct) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setId(newProduct.getId());
-                    product.setName(newProduct.getName());
-                    product.setDescription(newProduct.getDescription());
-                    product.setPrice(newProduct.getPrice());
-                    product.setPhoto(newProduct.getPhoto());
-                    product.setQuantity(newProduct.getQuantity());
-                    return productRepository.save(product);
-        }).orElseGet(() -> {
-            return productRepository.save(newProduct);
-                });
+    public Product updateProduct(@RequestBody Product updatedProduct) {
+        return productService.updateProduct(updatedProduct);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
-        productRepository.deleteById(id);
+        productService.delete(id);
     }
 }

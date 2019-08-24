@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.CartOrderedProductDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,8 +13,8 @@ public class OrderedProduct {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "product_id")
+    private Integer productId;
 
     @Column(name = "sell_price")
     private Double sellPrice;
@@ -21,16 +23,24 @@ public class OrderedProduct {
     private Integer quantity;
 
     @Column(name = "order_id")
-    private String orderId;
+    private Integer orderId;
 
     public OrderedProduct() {
     }
 
-    public OrderedProduct(Integer id, String name, Double sellPrice, Integer quantity, String orderId) {
+    public OrderedProduct(Integer id, Integer productId, Double sellPrice, Integer quantity, Integer orderId) {
         this.id = id;
-        this.name = name;
+        this.productId = productId;
         this.sellPrice = sellPrice;
         this.quantity = quantity;
+        this.orderId = orderId;
+    }
+
+    public OrderedProduct(CartOrderedProductDTO dto, Integer orderId) {
+        this.id = 0;
+        this.productId = dto.getProductId();
+        this.sellPrice = dto.getSellPrice();
+        this.quantity = dto.getQuantity();
         this.orderId = orderId;
     }
 
@@ -42,12 +52,12 @@ public class OrderedProduct {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public Double getSellPrice() {
@@ -66,11 +76,11 @@ public class OrderedProduct {
         this.quantity = quantity;
     }
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 }

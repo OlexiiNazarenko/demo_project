@@ -1,19 +1,14 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Product;
+
 import javax.persistence.Column;
 
 public class ProductSimpleDTO {
 
-//    @Column(name = "id")
     private Integer id;
-
-//    @Column(name = "name")
     private String name;
-
-//    @Column(name = "price")
     private Double price;
-
-//    @Column(name = "photo")
     private String photo;
 
     public ProductSimpleDTO() {
@@ -24,6 +19,13 @@ public class ProductSimpleDTO {
         this.name = name;
         this.price = price;
         this.photo = photo;
+    }
+
+    public ProductSimpleDTO(Product product) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.price = product.getPrice();
+        this.photo = product.getPhoto();
     }
 
     public Integer getId() {

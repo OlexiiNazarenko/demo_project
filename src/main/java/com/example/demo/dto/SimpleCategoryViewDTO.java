@@ -1,18 +1,22 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Category;
+
 import javax.persistence.Column;
 
-public class CategoryWithoutProductsDTO {
+public class SimpleCategoryViewDTO {
 
-//    @Column(name = "id")
     private Integer id;
-
-//    @Column(name = "name")
     private String name;
 
-    public CategoryWithoutProductsDTO(Integer id, String name) {
+    public SimpleCategoryViewDTO(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public SimpleCategoryViewDTO(Category category) {
+        this.id = category.getId();
+        this.name = category.getName();
     }
 
     public Integer getCategoryId() {
