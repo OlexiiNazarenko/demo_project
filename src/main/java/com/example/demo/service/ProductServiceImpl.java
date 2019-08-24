@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product updatedProduct) {
-        Product product = productRepository.findById(updatedProduct.getId()).get();
+        Product product = productRepository.findById(updatedProduct.getProductId()).get();
         if(product != null) {
             product.setName(updatedProduct.getName());
             product.setDescription(updatedProduct.getDescription());

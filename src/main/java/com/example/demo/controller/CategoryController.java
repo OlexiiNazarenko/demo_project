@@ -4,13 +4,16 @@ import com.example.demo.model.Category;
 
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+
+    @Value("${url}")
+    private String path;
 
     private CategoryService categoryService;
 
@@ -19,14 +22,12 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public @ResponseBody Category getCategory (@RequestParam Integer id) {
-        return categoryService.getOne(id);
-    }
-
-    @GetMapping("/{name}")
-    public @ResponseBody Category getCategory (@RequestParam String name) {
-        return categoryService.getOne(name);
+        Category category = categoryService.getOne(id);
+        Link link = new Link(path + "/category/" + category.getCategoryId()).withSelfRel();
+        category.add(link);
+        return category;
     }
 
     @PostMapping("")
@@ -35,8 +36,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory( @RequestBody Category updatedCategory) {
-        return categoryService.update(updatedCategory);
+    public Category updateCategory( @RequestBody Category updatedCategory, @PathVariable Integer id) {
+        return categoryService.update(updatedCategory, id);
     }
 
     @DeleteMapping("/{id}")

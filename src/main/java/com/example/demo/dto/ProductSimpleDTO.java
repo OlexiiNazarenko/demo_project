@@ -22,7 +22,7 @@ public class ProductSimpleDTO {
     }
 
     public ProductSimpleDTO(Product product) {
-        this.id = product.getId();
+        this.id = product.getProductId();
         this.name = product.getName();
         this.price = product.getPrice();
         this.photo = product.getPhoto();

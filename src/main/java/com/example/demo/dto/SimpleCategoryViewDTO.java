@@ -1,10 +1,9 @@
 package com.example.demo.dto;
 
 import com.example.demo.model.Category;
+import org.springframework.hateoas.ResourceSupport;
 
-import javax.persistence.Column;
-
-public class SimpleCategoryViewDTO {
+public class SimpleCategoryViewDTO extends ResourceSupport {
 
     private Integer id;
     private String name;
@@ -15,7 +14,7 @@ public class SimpleCategoryViewDTO {
     }
 
     public SimpleCategoryViewDTO(Category category) {
-        this.id = category.getId();
+        this.id = category.getCategoryId();
         this.name = category.getName();
     }
 

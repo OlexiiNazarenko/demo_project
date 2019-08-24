@@ -3,12 +3,10 @@ package com.example.demo.service;
 import com.example.demo.dto.CartOrderedProductDTO;
 import com.example.demo.model.OrderedProduct;
 import com.example.demo.model.Product;
-import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.OrderedProductRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,7 +45,7 @@ public class OrderedProductServiceImpl implements OrderedProductService {
 
     @Override
     public OrderedProduct update(OrderedProduct updatedOrderedProduct) {
-        OrderedProduct orderedProduct = orderedProductRepository.findById(updatedOrderedProduct.getId()).get();
+        OrderedProduct orderedProduct = orderedProductRepository.findById(updatedOrderedProduct.getOrderedProductId()).get();
         if(orderedProduct != null) {
             orderedProduct.setOrderId(updatedOrderedProduct.getOrderId());
             orderedProduct.setProductId(updatedOrderedProduct.getProductId());
