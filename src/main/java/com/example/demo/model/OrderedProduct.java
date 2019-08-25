@@ -1,12 +1,13 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.CartOrderedProductDTO;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ordered_products")
-public class OrderedProduct {
+public class OrderedProduct extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,7 @@ public class OrderedProduct {
         this.orderId = orderId;
     }
 
-    public Integer getId() {
+    public Integer getOrderedProductId() {
         return id;
     }
 

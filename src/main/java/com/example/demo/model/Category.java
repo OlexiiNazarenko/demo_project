@@ -1,12 +1,14 @@
 package com.example.demo.model;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable {
+public class Category extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Category implements Serializable {
     public Category() {
     }
 
-    public Integer getId() {
+    public Integer getCategoryId() {
         return id;
     }
 

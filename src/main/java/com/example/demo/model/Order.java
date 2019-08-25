@@ -1,11 +1,13 @@
 package com.example.demo.model;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,7 @@ public class Order {
         this.email = email;
     }
 
-    public Integer getId() {
+    public Integer getOrderId() {
         return id;
     }
 

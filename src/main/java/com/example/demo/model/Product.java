@@ -2,15 +2,12 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.io.Serializable;
-import java.util.List;
+import org.springframework.hateoas.ResourceSupport;
 
 @Entity
 @Table(name="products")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Product implements Serializable {
+public class Product extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +43,7 @@ public class Product implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public int getId() {
+    public Integer getProductId() {
         return id;
     }
 

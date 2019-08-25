@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -52,12 +51,12 @@ public class OrderServiceImpl implements OrderService {
                 cartDTO.getCustomerPhone(),
                 cartDTO.getCustomerEmail()
         );
-        return orderRepository.save(order).getId();
+        return orderRepository.save(order).getOrderId();
     }
 
     @Override
     public Order update(Order updatedOrder) {
-        Order order = orderRepository.findById(updatedOrder.getId()).get();
+        Order order = orderRepository.findById(updatedOrder.getOrderId()).get();
         if(order != null) {
             order.setFirstName(updatedOrder.getFirstName());
             order.setLastName(updatedOrder.getLastName());
