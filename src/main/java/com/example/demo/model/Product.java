@@ -33,7 +33,7 @@ public class Product extends ResourceSupport {
     public Product() {
     }
 
-    public Product(int id, String name, String description, double price, String photo, int quantity, Integer categoryId) {
+    public Product(Integer id, String name, String description, Double price, String photo, Integer quantity, Integer categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -63,7 +63,7 @@ public class Product extends ResourceSupport {
         return photo;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 

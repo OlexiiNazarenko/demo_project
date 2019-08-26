@@ -11,7 +11,7 @@ public interface OrderedProductService {
 
     OrderedProduct addNew(OrderedProduct orderedProduct);
 
-    void addAll(List<CartOrderedProductDTO> list, Integer orderId);
+    String addAll(List<CartOrderedProductDTO> list, Integer orderId);
 
     OrderedProduct update(OrderedProduct updatedOrderedProduct);
 

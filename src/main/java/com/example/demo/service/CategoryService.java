@@ -2,17 +2,19 @@ package com.example.demo.service;
 
 import com.example.demo.model.Category;
 
+import java.util.NoSuchElementException;
+
 public interface CategoryService {
 
     Iterable<Category> getAll();
 
-    Category getOne(Integer id);
+    Category getOne(Integer id) throws NoSuchElementException;
 
-    Category getOne(String name);
+    Category getOne(String name) throws NoSuchElementException;
 
     Category addNew(Category category);
 
-    Category update(Category updatedCategory, Integer id);
+    Category update(String name, Integer id) throws NoSuchElementException;
 
     void delete(Integer id);
 }

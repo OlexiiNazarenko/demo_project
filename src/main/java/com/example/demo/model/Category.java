@@ -3,7 +3,6 @@ package com.example.demo.model;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -22,6 +21,11 @@ public class Category extends ResourceSupport {
     private List<Product> products;
 
     public Category() {
+    }
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getCategoryId() {

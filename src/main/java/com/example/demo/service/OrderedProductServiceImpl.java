@@ -6,8 +6,10 @@ import com.example.demo.model.Product;
 import com.example.demo.repository.OrderedProductRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderedProductServiceImpl implements OrderedProductService {
@@ -32,15 +34,39 @@ public class OrderedProductServiceImpl implements OrderedProductService {
     }
 
     @Override
-    public void addAll(List<CartOrderedProductDTO> list, Integer orderId) {
-        for(CartOrderedProductDTO dto : list){
-            orderedProductRepository.save(new OrderedProduct(dto, orderId));
+    @Transactional
+    public String addAll(List<CartOrderedProductDTO> list, Integer orderId) {
 
-            Product product = productRepository.findById(dto.getProductId()).get();
-            int newQuantity = product.getQuantity() - dto.getQuantity();
-            product.setQuantity(newQuantity);
-            productRepository.save(product);
+        if(checkProducts(list)) {
+            for(CartOrderedProductDTO dto : list) {
+                Product product = productRepository.findById(dto.getProductId()).get();
+                Integer newQuantity = product.getQuantity() - dto.getQuantity();
+                product.setQuantity(newQuantity);
+                productRepository.save(product);
+                orderedProductRepository.save(new OrderedProduct(dto, orderId));
+            }
         }
+
+        return "Successfully saved order with id: " + orderId;
+    }
+
+    private boolean checkProducts(List<CartOrderedProductDTO> list) {
+        for (CartOrderedProductDTO dto : list) {
+            Product product = productRepository.findById(dto.getProductId()).get();
+
+            if (product.getQuantity() == 0) {
+                throw new ZeroProductQuantityException(dto.getProductId());
+            }
+
+            Integer newQuantity = product.getQuantity() - dto.getQuantity();
+
+            if (newQuantity < 0) {
+                throw new ExceedProductStorageOrderException(dto.getProductId(),
+                        product.getQuantity(),
+                        dto.getQuantity());
+            }
+        }
+        return true;
     }
 
     @Override

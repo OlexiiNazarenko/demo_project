@@ -4,6 +4,7 @@ import com.example.demo.dto.CartDTO;
 import com.example.demo.dto.SimpleCategoryViewDTO;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;
@@ -35,12 +36,14 @@ public class AppController {
     public @ResponseBody List<SimpleCategoryViewDTO> start() {
         List<SimpleCategoryViewDTO> result = new ArrayList<>();
         Iterable<Category> listCategories = categoryService.getAll();
+
         for (Category category: listCategories) {
             SimpleCategoryViewDTO simpleCategoryViewDTO = new SimpleCategoryViewDTO(category);
             Link link = new Link(path + "/shop/category/" + category.getName());
             simpleCategoryViewDTO.add(link);
             result.add(simpleCategoryViewDTO);
         }
+
         return result;
     }
 
@@ -48,11 +51,13 @@ public class AppController {
     public @ResponseBody Category getCategory (@PathVariable String name) {
         Category category = categoryService.getOne(name);
         List<Product> productList = category.getProducts();
+
         for(Product product : productList) {
             Link link = new Link(path + "/product/" + product.getProductId());
             product.add(link);
         }
         category.setProducts(productList);
+
         return category;
     }
 
@@ -60,7 +65,6 @@ public class AppController {
     @Transactional
     public String saveCart(@RequestBody CartDTO cartDTO){
         Integer orderId = orderService.addNew(cartDTO);
-        orderedProductService.addAll(cartDTO.getOrderedProductsList(), orderId);
-        return "Order saved. Id: " + orderId;
+        return orderedProductService.addAll(cartDTO.getOrderedProductsList(), orderId);
     }
 }

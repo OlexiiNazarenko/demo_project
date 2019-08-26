@@ -9,4 +9,8 @@ public class CategoryNotFoundException extends RuntimeException {
     public CategoryNotFoundException(String name) {
         super("Couldn't find category " + name);
     }
+
+    public CategoryNotFoundException() {
+        super("No such category found");
+    }
 }

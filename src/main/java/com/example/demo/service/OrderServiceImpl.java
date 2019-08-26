@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.CartDTO;
+import com.example.demo.dto.CustomerDetailsDTO;
 import com.example.demo.model.Order;
 import com.example.demo.model.OrderNotFoundException;
 import com.example.demo.repository.OrderRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -27,50 +29,35 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOne(Integer id) {
+    public Order getOne(Integer id) throws NoSuchElementException {
         Order order = orderRepository.findById(id).get();
-        if(order == null) {
-            throw new OrderNotFoundException(id);
-        }
         return order;
-    }
-
-    @Override
-    public Order addNew(Order order) {
-
-        return orderRepository.save(order);
     }
 
     @Override
     public Integer addNew(CartDTO cartDTO) {
         Order order = new Order(
-                0,
+                null,
                 cartDTO.getCustomerFirstName(),
                 cartDTO.getCustomerLastName(),
                 cartDTO.getCustomerAddress(),
                 cartDTO.getCustomerPhone(),
                 cartDTO.getCustomerEmail()
         );
+
         return orderRepository.save(order).getOrderId();
     }
 
     @Override
-    public Order update(Order updatedOrder) {
-        Order order = orderRepository.findById(updatedOrder.getOrderId()).get();
-        if(order != null) {
-            order.setFirstName(updatedOrder.getFirstName());
-            order.setLastName(updatedOrder.getLastName());
-            order.setAddress(updatedOrder.getAddress());
-            order.setPhone(updatedOrder.getPhone());
-            order.setEmail(updatedOrder.getEmail());
-        } else {
-            order = updatedOrder;
-        }
-        return orderRepository.save(order);
-    }
+    public Order update(CustomerDetailsDTO customerDetailsDTO, Integer id) throws NoSuchElementException {
+        Order order = orderRepository.findById(id).get();
 
-    @Override
-    public void delete(String id) {
-        orderRepository.deleteById(id);
+        order.setFirstName(customerDetailsDTO.getFirstName());
+        order.setLastName(customerDetailsDTO.getLastName());
+        order.setAddress(customerDetailsDTO.getAddress());
+        order.setPhone(customerDetailsDTO.getPhone());
+        order.setEmail(customerDetailsDTO.getEmail());
+
+        return orderRepository.save(order);
     }
 }

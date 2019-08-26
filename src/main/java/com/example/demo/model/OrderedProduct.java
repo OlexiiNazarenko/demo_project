@@ -38,7 +38,7 @@ public class OrderedProduct extends ResourceSupport {
     }
 
     public OrderedProduct(CartOrderedProductDTO dto, Integer orderId) {
-        this.id = 0;
+        this.id = null;
         this.productId = dto.getProductId();
         this.sellPrice = dto.getSellPrice();
         this.quantity = dto.getQuantity();

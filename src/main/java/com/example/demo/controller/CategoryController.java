@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PutCategoryViewDTO;
 import com.example.demo.model.Category;
-
 import com.example.demo.service.CategoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;
@@ -26,22 +27,26 @@ public class CategoryController {
     public @ResponseBody Category getCategory (@RequestParam Integer id) {
         Category category = categoryService.getOne(id);
         Link link = new Link(path + "/category/" + category.getCategoryId()).withSelfRel();
+
         category.add(link);
+
         return category;
     }
 
-    @PostMapping("")
-    public Category createNewCategory(@RequestBody Category category) {
+    @PostMapping("/create")
+    public Category createNewCategory(@RequestBody PutCategoryViewDTO putCategoryViewDTO) {
+        Category category = new Category(null, putCategoryViewDTO.getName());
         return categoryService.addNew(category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory( @RequestBody Category updatedCategory, @PathVariable Integer id) {
-        return categoryService.update(updatedCategory, id);
+    public @ResponseBody Category updateCategory(@RequestBody PutCategoryViewDTO putCategoryViewDTO, @PathVariable Integer id) {
+        return categoryService.update(putCategoryViewDTO.getName(), id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Integer id) {
+
         categoryService.delete(id);
     }
 }

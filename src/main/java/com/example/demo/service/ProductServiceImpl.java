@@ -1,12 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.CreateProductDTO;
 import com.example.demo.model.Product;
-import com.example.demo.model.ProductNotFoundException;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -29,28 +30,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getOne(Integer id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+    public Product getOne(Integer id) throws NoSuchElementException {
+        return productRepository.findById(id).get();
     }
 
     @Override
-    public Product addNew(Product product) {
+    public Product addNew(CreateProductDTO newProduct) {
+        Product product = new Product(
+                null,
+                newProduct.getName(),
+                newProduct.getDescription(),
+                newProduct.getPrice(),
+                newProduct.getPhoto(),
+                newProduct.getQuantity(),
+                newProduct.getCategoryId()
+        );
+
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(Product updatedProduct) {
-        Product product = productRepository.findById(updatedProduct.getProductId()).get();
-        if(product != null) {
-            product.setName(updatedProduct.getName());
-            product.setDescription(updatedProduct.getDescription());
-            product.setPrice(updatedProduct.getPrice());
-            product.setPhoto(updatedProduct.getPhoto());
-            product.setQuantity(updatedProduct.getQuantity());
-            product.setCategoryId(updatedProduct.getCategoryId());
-        } else {
-            product = updatedProduct;
-        }
+    public Product updateProduct(CreateProductDTO updatedProduct, Integer id) throws NoSuchElementException {
+        Product product = productRepository.findById(id).get();
+
+        product.setName(updatedProduct.getName());
+        product.setDescription(updatedProduct.getDescription());
+        product.setPrice(updatedProduct.getPrice());
+        product.setPhoto(updatedProduct.getPhoto());
+        product.setQuantity(updatedProduct.getQuantity());
+        product.setCategoryId(updatedProduct.getCategoryId());
+
         return  productRepository.save(product);
     }
 

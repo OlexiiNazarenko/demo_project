@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Category;
-import com.example.demo.model.CategoryNotFoundException;
 import com.example.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -13,6 +14,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
+
         this.categoryRepository = categoryRepository;
     }
 
@@ -22,16 +24,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getOne(Integer id) {
+    public Category getOne(Integer id) throws NoSuchElementException {
         Category category = categoryRepository.findById(id).get();
-        if(category == null) {
-            throw new CategoryNotFoundException(id);
-        }
         return category;
     }
 
     @Override
-    public Category getOne(String name) {
+    public Category getOne(String name) throws NoSuchElementException {
         Category category = categoryRepository.findByName(name);
         return category;
     }
@@ -42,14 +41,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category updatedCategory, Integer id) {
-        Category category = categoryRepository.findById(id).get();
-        if(category != null) {
-            category.setName(updatedCategory.getName());
-        } else {
-            category = updatedCategory;
-        }
-        return categoryRepository.save(category);
+    public Category update(String name, Integer id) throws NoSuchElementException {
+        return categoryRepository.findById(id).get();
     }
 
     @Override
