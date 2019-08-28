@@ -8,11 +8,15 @@ import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("")
@@ -63,8 +67,9 @@ public class AppController {
 
     @PostMapping("cart/save")
     @Transactional
-    public String saveCart(@RequestBody CartDTO cartDTO){
+    public ResponseEntity<String> saveCart(@RequestBody CartDTO cartDTO){
         Integer orderId = orderService.addNew(cartDTO);
-        return orderedProductService.addAll(cartDTO.getOrderedProductsList(), orderId);
+        String response = orderedProductService.addAll(cartDTO.getOrderedProductsList(), orderId);
+        return ok(response);
     }
 }

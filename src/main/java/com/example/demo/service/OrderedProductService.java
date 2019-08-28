@@ -9,11 +9,11 @@ public interface OrderedProductService {
 
     List<OrderedProduct> getAllOfOrder(Integer orderId);
 
-    OrderedProduct addNew(OrderedProduct orderedProduct);
+//    OrderedProduct addNew(OrderedProduct orderedProduct);
 
     String addAll(List<CartOrderedProductDTO> list, Integer orderId);
 
-    OrderedProduct update(OrderedProduct updatedOrderedProduct);
+//    OrderedProduct update(OrderedProduct updatedOrderedProduct);
 
-    void delete(String orderId);
+//    void delete(String orderId);
 }

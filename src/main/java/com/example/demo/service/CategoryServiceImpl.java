@@ -42,7 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(String name, Integer id) throws NoSuchElementException {
-        return categoryRepository.findById(id).get();
+        Category category = categoryRepository.findById(id).get();
+        category.setName(name);
+        return categoryRepository.save(category);
     }
 
     @Override

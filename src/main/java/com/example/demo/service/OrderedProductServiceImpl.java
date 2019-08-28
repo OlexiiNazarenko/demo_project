@@ -5,11 +5,11 @@ import com.example.demo.model.OrderedProduct;
 import com.example.demo.model.Product;
 import com.example.demo.repository.OrderedProductRepository;
 import com.example.demo.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class OrderedProductServiceImpl implements OrderedProductService {
@@ -17,6 +17,10 @@ public class OrderedProductServiceImpl implements OrderedProductService {
     private OrderedProductRepository orderedProductRepository;
     private ProductRepository productRepository;
 
+    public OrderedProductServiceImpl() {
+    }
+
+    @Autowired
     public OrderedProductServiceImpl(OrderedProductRepository orderedProductRepository,
                                      ProductRepository productRepository) {
         this.orderedProductRepository = orderedProductRepository;
@@ -26,11 +30,6 @@ public class OrderedProductServiceImpl implements OrderedProductService {
     @Override
     public List<OrderedProduct> getAllOfOrder(Integer orderId) {
         return orderedProductRepository.findAllByOrderId(orderId);
-    }
-
-    @Override
-    public OrderedProduct addNew(OrderedProduct orderedProduct) {
-        return orderedProductRepository.save(orderedProduct);
     }
 
     @Override
@@ -67,24 +66,5 @@ public class OrderedProductServiceImpl implements OrderedProductService {
             }
         }
         return true;
-    }
-
-    @Override
-    public OrderedProduct update(OrderedProduct updatedOrderedProduct) {
-        OrderedProduct orderedProduct = orderedProductRepository.findById(updatedOrderedProduct.getOrderedProductId()).get();
-        if(orderedProduct != null) {
-            orderedProduct.setOrderId(updatedOrderedProduct.getOrderId());
-            orderedProduct.setProductId(updatedOrderedProduct.getProductId());
-            orderedProduct.setSellPrice(updatedOrderedProduct.getSellPrice());
-            orderedProduct.setQuantity(updatedOrderedProduct.getQuantity());
-        } else {
-            orderedProduct = updatedOrderedProduct;
-        }
-        return orderedProductRepository.save(orderedProduct);
-    }
-
-    @Override
-    public void delete(String orderId) {
-        orderedProductRepository.deleteByOrderId(orderId);
     }
 }
