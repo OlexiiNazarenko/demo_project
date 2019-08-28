@@ -6,6 +6,9 @@ public class CartOrderedProductDTO {
     private Double sellPrice;
     private Integer quantity;
 
+    public CartOrderedProductDTO() {
+    }
+
     public CartOrderedProductDTO(Integer productId, Double sellPrice, Integer quantity) {
         this.productId = productId;
         this.sellPrice = sellPrice;

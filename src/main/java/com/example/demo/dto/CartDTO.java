@@ -11,6 +11,9 @@ public class CartDTO {
     private String customerEmail;
     private List<CartOrderedProductDTO> orderedProductsList;
 
+    public CartDTO() {
+    }
+
     public CartDTO(String customerFirstName,
                    String customerLastName,
                    String customerAddress,
