@@ -3,12 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.dto.CartDTO;
 import com.example.demo.dto.SimpleCategoryViewDTO;
 import com.example.demo.model.*;
-import com.example.demo.service.*;
 
+import com.example.demo.service.intefaces.CategoryService;
+import com.example.demo.service.intefaces.OrderService;
+import com.example.demo.service.intefaces.OrderedProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

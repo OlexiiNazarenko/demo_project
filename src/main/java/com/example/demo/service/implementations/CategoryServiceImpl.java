@@ -1,7 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.service.implementations;
 
 import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.service.intefaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.CreateProductDTO;
 import com.example.demo.model.Product;
-import com.example.demo.service.ProductService;
+import com.example.demo.service.intefaces.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

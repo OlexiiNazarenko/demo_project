@@ -5,8 +5,8 @@ import com.example.demo.dto.OrderDisplayDTO;
 import com.example.demo.model.Order;
 import com.example.demo.model.OrderNotFoundException;
 import com.example.demo.model.OrderedProduct;
-import com.example.demo.service.OrderService;
-import com.example.demo.service.OrderedProductService;
+import com.example.demo.service.intefaces.OrderService;
+import com.example.demo.service.intefaces.OrderedProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

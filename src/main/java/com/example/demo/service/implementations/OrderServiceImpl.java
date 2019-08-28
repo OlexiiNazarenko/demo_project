@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.service.implementations;
 
 import com.example.demo.dto.CartDTO;
 import com.example.demo.dto.CustomerDetailsDTO;
 import com.example.demo.model.Order;
-import com.example.demo.model.OrderNotFoundException;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.OrderedProductRepository;
+import com.example.demo.service.intefaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

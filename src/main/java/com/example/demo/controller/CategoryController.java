@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.PutCategoryViewDTO;
 import com.example.demo.model.Category;
-import com.example.demo.service.CategoryService;
+import com.example.demo.service.intefaces.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

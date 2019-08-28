@@ -1,10 +1,13 @@
-package com.example.demo.service;
+package com.example.demo.service.implementations;
 
 import com.example.demo.dto.CartOrderedProductDTO;
 import com.example.demo.model.OrderedProduct;
 import com.example.demo.model.Product;
 import com.example.demo.repository.OrderedProductRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.ExceedProductStorageOrderException;
+import com.example.demo.service.ZeroProductQuantityException;
+import com.example.demo.service.intefaces.OrderedProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

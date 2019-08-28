@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.intefaces;
 
 import com.example.demo.dto.CreateProductDTO;
 import com.example.demo.model.Product;
