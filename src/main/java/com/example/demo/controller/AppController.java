@@ -3,10 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.dto.CartDTO;
 import com.example.demo.dto.SimpleCategoryViewDTO;
 import com.example.demo.model.*;
-
 import com.example.demo.service.intefaces.CategoryService;
 import com.example.demo.service.intefaces.OrderService;
 import com.example.demo.service.intefaces.OrderedProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;
@@ -50,20 +50,6 @@ public class AppController {
         }
 
         return result;
-    }
-
-    @GetMapping("/shop/category/{name}")
-    public @ResponseBody Category getCategory (@PathVariable String name) {
-        Category category = categoryService.getOne(name);
-        List<Product> productList = category.getProducts();
-
-        for(Product product : productList) {
-            Link link = new Link(path + "/product/" + product.getProductId());
-            product.add(link);
-        }
-        category.setProducts(productList);
-
-        return category;
     }
 
     @PostMapping("cart/save")

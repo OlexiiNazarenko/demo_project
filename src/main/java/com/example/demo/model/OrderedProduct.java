@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import com.example.demo.dto.CartOrderedProductDTO;
 import org.springframework.hateoas.ResourceSupport;
-
 import javax.persistence.*;
 
 @Entity

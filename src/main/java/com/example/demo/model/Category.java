@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import org.springframework.hateoas.ResourceSupport;
-
 import javax.persistence.*;
 import java.util.List;
 

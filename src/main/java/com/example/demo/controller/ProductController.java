@@ -32,6 +32,8 @@ public class ProductController {
         for(Product product : products) {
             Link linkSelf = new Link(path + "/product/" + product.getProductId()).withSelfRel();
             product.add(linkSelf);
+            Link linkPhoto = new Link(path + "/images/" + product.getPhoto()).withRel("image");
+            product.add(linkPhoto);
         }
 
         return products;
@@ -43,18 +45,34 @@ public class ProductController {
 
         Link linkSelf = new Link(path + "/product/" + product.getProductId()).withSelfRel();
         product.add(linkSelf);
+        Link linkPhoto = new Link(path + "/images/" + product.getPhoto()).withRel("image");
+        product.add(linkPhoto);
 
         return product;
     }
 
     @PostMapping("/create")
     public @ResponseBody Product createNewProduct(@RequestBody CreateProductDTO newProduct){
-        return productService.addNew(newProduct);
+        Product product = productService.addNew(newProduct);
+
+        Link linkSelf = new Link(path + "/product/" + product.getProductId()).withSelfRel();
+        product.add(linkSelf);
+        Link linkPhoto = new Link(path + "/images/" + product.getPhoto()).withRel("image");
+        product.add(linkPhoto);
+
+        return product;
     }
 
     @PutMapping("/{id}")
     public Product updateProduct(@RequestBody CreateProductDTO updatedProduct, @PathVariable Integer id) {
-        return productService.updateProduct(updatedProduct, id);
+        Product product = productService.updateProduct(updatedProduct, id);
+
+        Link linkSelf = new Link(path + "/product/" + product.getProductId()).withSelfRel();
+        product.add(linkSelf);
+        Link linkPhoto = new Link(path + "/images/" + product.getPhoto()).withRel("image");
+        product.add(linkPhoto);
+
+        return product;
     }
 
     @DeleteMapping("/{id}")
